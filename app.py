@@ -51,7 +51,9 @@ app.layout = html.Div(
                         dcc.Tab(
                             label="Infos générales",
                             children=[
-                                html.Div([html.H3("Infos Générales")]),
+                                html.Div(
+                                    [html.H3("Infos Générales", className="tab-title")]
+                                ),
                                 html.Div(
                                     [
                                         html.Div(
@@ -308,7 +310,7 @@ app.layout = html.Div(
                             children=[
                                 html.Div(
                                     [
-                                        html.H2("Santé"),
+                                        html.H3("Santé", className="tab-title"),
                                         html.Div(
                                             [
                                                 html.Div(
@@ -393,7 +395,7 @@ app.layout = html.Div(
                                 ),
                                 html.Div(
                                     [
-                                        html.H2("Social"),
+                                        html.H3("Social", className="tab-title"),
                                         html.Div(
                                             [
                                                 html.Div(
@@ -737,7 +739,7 @@ app.layout = html.Div(
                         dcc.Tab(
                             label="Salaires",
                             children=[
-                                html.H3("Salaires"),
+                                html.H3("Salaires", className="tab-title"),
                                 html.Div(
                                     [
                                         html.Div(
