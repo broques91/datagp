@@ -13,6 +13,7 @@ numpy = "*"
 dash = "*"
 plotly = "*"
 folium = "*"
+gunicorn = "*"
 
 [dev-packages]
 black = "*"
