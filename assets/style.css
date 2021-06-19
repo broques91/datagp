@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    background-color: #1C4E80;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+h2, h3 {
+    text-align: center;
+    color: #1C4E80;
+}
+
+#ville-picker {
+    width: 25%;
+    padding: 30px;
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 30px;
+}
+
+.tab-title {
+    color: #1C4E80;
+    padding: 20px 0px;
+}
+
+/* INFOS */
+
+#infos {
+    vertical-align: top;
+    padding: 60px 30px;
+}
+
+#map {
+    display: inline-block;
+    vertical-align: top;
+    padding: 15px;
+}
+
+/* DEMOGRAPHIE */
+
+.graph-demo {
+    display: inline-block;
+}
+
+.repartition-graph {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.repartition-table {
+    display: inline-block;
+    vertical-align: top;
+    padding: 50px;
+}
+
+.immo-data {
+    font-weight: 600;
+}
+
+.orange {
+    color: orange;
+}
+
+.green {
+    color: green;
+}
+
+.infos-immo {
+    padding: 50px;
+}
+
+.immo-div {
+    border: 1px solid black;
+    padding: 20px;
+    text-align: center;
+    vertical-align: top;
+}
+
+.immo-border-graph{
+    border: 2px solid black;
+    padding: 20px;
+    vertical-align: top;
+}
+
+
