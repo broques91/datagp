@@ -15,6 +15,7 @@ import os
 df = pd.read_csv("data/liens_villes.csv")
 df_auto = pd.read_csv("data/automobile.csv")
 df_csp = pd.read_csv("data/csp.csv")
+df_chomage = pd.read_csv("data/chomage.csv")
 df_delinquance = pd.read_csv("data/delinquance.csv")
 df_immo = pd.read_csv("data/immobilier.csv")
 df_demographie = pd.read_csv("data/demographie.csv")
@@ -27,7 +28,10 @@ df_sante_social = pd.read_csv("data/sante_social.csv")
 # Dropdown selection ville
 villes = [{"label": ville, "value": ville} for ville in df["ville"].unique()]
 
-app = dash.Dash(__name__)
+app = dash.Dash(
+    __name__,
+    meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
+)
 app.title = "DataGP"
 app.layout = html.Div(
     [
@@ -528,17 +532,17 @@ app.layout = html.Div(
                             label="Emploi",
                             children=[
                                 html.H3("Emploi / Chômage", className="tab-title"),
-                                # html.Div(
-                                #     [
-                                #         html.Div(
-                                #             [
-                                #                 dcc.Graph(id="evolution-chomage"),
-                                #             ],
-                                #             className="twelve columns",
-                                #         )
-                                #     ],
-                                #     className="row",
-                                # ),
+                                html.Div(
+                                    [
+                                        html.Div(
+                                            [
+                                                dcc.Graph(id="evolution-chomage"),
+                                            ],
+                                            className="twelve columns",
+                                        )
+                                    ],
+                                    className="row",
+                                ),
                                 html.Div(
                                     [
                                         html.Div(
@@ -1719,7 +1723,7 @@ def presta_sociales(ville):
     fig_caf = {
         "data": trace_caf,
         "layout": go.Layout(
-            title=f"Evolution du nombre d'allocataires CAF à {ville.split('(')[0]}",
+            title=f"Nombre d'allocataires CAF<br> à {ville.split('(')[0]}",
             xaxis=dict(title="Annees"),
             yaxis=dict(title="Nombre de bénéficiaires"),
             hovermode="closest",
@@ -1729,7 +1733,7 @@ def presta_sociales(ville):
     fig_rsa = {
         "data": trace_rsa,
         "layout": go.Layout(
-            title=f"Evolution du nombre de bénéficiaires du RSA à {ville.split('(')[0]}",
+            title=f"Nombre de bénéficiaires du RSA<br> à {ville.split('(')[0]}",
             xaxis=dict(title="Annees"),
             yaxis=dict(title="Nombre de bénéficiaires"),
             hovermode="closest",
@@ -1739,7 +1743,7 @@ def presta_sociales(ville):
     fig_apl = {
         "data": trace_apl,
         "layout": go.Layout(
-            title=f"Evolution du nombre de bénéficiaires des APL à {ville.split('(')[0]}",
+            title=f"Nombre de bénéficiaires des APL<br> à {ville.split('(')[0]}",
             xaxis=dict(title="Annees"),
             yaxis=dict(title="Nombre de bénéficiaires"),
             hovermode="closest",
@@ -1749,7 +1753,7 @@ def presta_sociales(ville):
     fig_alloc = {
         "data": trace_alloc,
         "layout": go.Layout(
-            title=f"Evolution du nombre de bénéficiaires des allocations familiales à {ville.split('(')[0]}",
+            title=f"Nombre de bénéficiaires des allocations familiales<br> à {ville.split('(')[0]}",
             xaxis=dict(title="Annees"),
             yaxis=dict(title="Nombre de bénéficiaires"),
             hovermode="closest",
@@ -1907,6 +1911,49 @@ def table_immobilier(ville):
 
 ## Emploi ##
 
+# Chômage
+@app.callback(Output("evolution-chomage", "figure"), [Input("dropdown-ville", "value")])
+def evolution_chomage(ville):
+    x_axis = np.array(range(2006, 2018))
+    y_axis = [
+        df_chomage[df_chomage["ville"] == ville][
+            f"Taux de chômage ({str(annee)})"
+        ].iloc[0]
+        for annee in range(2006, 2018)
+    ]
+    y_mean = [
+        df_chomage[f"Moyenne France ({str(annee)})"].mean()
+        for annee in range(2006, 2018)
+    ]
+
+    traces = [
+        go.Scatter(
+            x=x_axis,
+            y=y_axis,
+            mode="lines+markers",
+            line={"shape": "spline", "smoothing": 1},
+            name=f"Taux de chomage à {ville.split('(')[0].strip()}",
+        ),
+        go.Scatter(
+            x=x_axis,
+            y=y_mean,
+            mode="lines+markers",
+            line={"shape": "spline", "smoothing": 1},
+            name=f"Moyenne de France",
+        ),
+    ]
+
+    return {
+        "data": traces,
+        "layout": go.Layout(
+            title=f"Evolution du chômage (%)<br> à {ville.split('(')[0].strip()}",
+            xaxis=dict(title="Années"),
+            yaxis=dict(title="% de la population"),
+            hovermode="closest",
+        ),
+    }
+
+
 # Emploi Hommes/Femmes
 @app.callback(Output("emploi-hf", "figure"), [Input("dropdown-ville", "value")])
 def emploi_hf(ville):
@@ -1949,7 +1996,7 @@ def emploi_hf(ville):
     return {
         "data": traces,
         "layout": go.Layout(
-            title=f"Emploi, activité et chômage<br> à {ville.split('(')[0].strip()}",
+            title=f"Emploi, activité et chômage (%)<br> à {ville.split('(')[0].strip()}",
         ),
     }
 
@@ -2046,7 +2093,7 @@ def emploi_age(ville):
     return {
         "data": traces,
         "layout": go.Layout(
-            title=f"Activité et emploi <br> selon l'âge (%) à {ville.split('(')[0].strip()}",
+            title=f"Activité et emploi selon l'âge (%)<br> à {ville.split('(')[0].strip()}",
         ),
     }
 
@@ -2387,7 +2434,7 @@ def diplome_hf(ville):
     return {
         "data": traces,
         "layout": go.Layout(
-            title=f"Répartition Hommes | Femmes (%)<br> à {ville.split('(')[0].strip()}",
+            title=f"Répartition Hommes / Femmes (%)<br> à {ville.split('(')[0].strip()}",
             barmode="stack",
         ),
     }
