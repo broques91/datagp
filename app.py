@@ -64,6 +64,13 @@ app.layout = html.Div(
                                             [
                                                 dash_table.DataTable(
                                                     id="table-infos",
+                                                    style_table={
+                                                        "width": "90%",
+                                                        "margin": "auto",
+                                                        "padding": "0 5px",
+                                                        "overflowX": "auto",
+                                                        "overflowY": "auto",
+                                                    },
                                                     style_cell={
                                                         "font-family": "Montserrat"
                                                     },
@@ -88,7 +95,7 @@ app.layout = html.Div(
                                                 )
                                             ],
                                             id="infos",
-                                            className="six columns",
+                                            className="six columns repartition-table",
                                         ),
                                         html.Div(id="map", className="six columns"),
                                     ],
@@ -462,7 +469,7 @@ app.layout = html.Div(
                                                 html.Div(
                                                     [
                                                         html.H4(
-                                                            "Informations complémentaires:"
+                                                            "Informations complémentaires"
                                                         ),
                                                         html.P(id="nb-logements"),
                                                     ],
@@ -474,7 +481,7 @@ app.layout = html.Div(
                                         ),
                                         html.Div(
                                             [dcc.Graph(id="residences")],
-                                            className="four columns repartition-graph",
+                                            className="four columns",
                                         ),
                                         html.Div(
                                             [
@@ -547,7 +554,7 @@ app.layout = html.Div(
                                     [
                                         html.Div(
                                             [dcc.Graph(id="emploi-hf")],
-                                            className="six columns",
+                                            className="eight columns",
                                         ),
                                         html.Div(
                                             [
@@ -576,7 +583,7 @@ app.layout = html.Div(
                                                     },
                                                 )
                                             ],
-                                            className="six columns repartition-table",
+                                            className="four columns repartition-table",
                                         ),
                                     ],
                                     className="row",
@@ -585,7 +592,7 @@ app.layout = html.Div(
                                     [
                                         html.Div(
                                             [dcc.Graph(id="emploi-age")],
-                                            className="six columns",
+                                            className="eight columns",
                                         ),
                                         html.Div(
                                             [
@@ -614,7 +621,7 @@ app.layout = html.Div(
                                                     },
                                                 )
                                             ],
-                                            className="six columns repartition-table",
+                                            className="four columns repartition-table",
                                         ),
                                     ],
                                     className="row",
@@ -623,7 +630,7 @@ app.layout = html.Div(
                                     [
                                         html.Div(
                                             [dcc.Graph(id="inactifs")],
-                                            className="six columns",
+                                            className="eight columns",
                                         ),
                                         html.Div(
                                             [
@@ -652,7 +659,7 @@ app.layout = html.Div(
                                                     },
                                                 )
                                             ],
-                                            className="six columns repartition-table",
+                                            className="four columns repartition-table",
                                         ),
                                     ],
                                     className="row",
@@ -661,7 +668,7 @@ app.layout = html.Div(
                                     [
                                         html.Div(
                                             [dcc.Graph(id="salaries")],
-                                            className="six columns",
+                                            className="eight columns",
                                         ),
                                         html.Div(
                                             [
@@ -690,7 +697,7 @@ app.layout = html.Div(
                                                     },
                                                 )
                                             ],
-                                            className="six columns repartition-table",
+                                            className="four columns repartition-table",
                                         ),
                                     ],
                                     className="row",
