@@ -965,6 +965,9 @@ app.layout = html.Div(
                 )
             ]
         ),
+        html.Footer(
+            html.P("Developed by Bastien Roques", style={"textAlign": "center"})
+        ),
     ]
 )
 
@@ -1045,7 +1048,7 @@ def population_graph(ville):
     return {
         "data": traces,
         "layout": go.Layout(
-            title=f"Evolution de la population à {ville}",
+            title=f"Evolution de la population<br> à {ville.split('(')[0]}",
             xaxis={"title": "Annees"},
             yaxis=dict(title="Nombre d'habitants"),
             hovermode="closest",
@@ -1093,7 +1096,7 @@ def naissances_deces_graph(ville):
     return {
         "data": traces,
         "layout": go.Layout(
-            title=f"Evolution des Naissances et Décès à {ville}",
+            title=f"Evolution des Naissances et Décès<br> à {ville}",
             xaxis={"title": "Annees"},
             yaxis=dict(title="Nombre de naissances et décès"),
             hovermode="closest",
@@ -1309,7 +1312,7 @@ def population_etrangers_graph(ville):
     return {
         "data": traces,
         "layout": go.Layout(
-            title=f"Evolution de la population étrangère à {ville}",
+            title=f"Evolution de la population étrangère à {ville.split('(')[0]}",
             xaxis={"title": "Annees"},
             yaxis=dict(title="Nombre d'étrangers"),
             hovermode="closest",
@@ -1434,7 +1437,7 @@ def population_immigree_graph(ville):
     return {
         "data": traces,
         "layout": go.Layout(
-            title=f"Evolution de la population immigrée à {ville}",
+            title=f"Evolution de la population immigrée à {ville.split('(')[0]}",
             xaxis={"title": "Annees"},
             yaxis=dict(title="Nombre d'immigrés"),
             hovermode="closest",
